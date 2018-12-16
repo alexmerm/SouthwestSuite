@@ -7,3 +7,6 @@ pytz
 requests
 requests_mock
 tzlocal
+
+requests[security]
+twilio
