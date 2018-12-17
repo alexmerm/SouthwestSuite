@@ -159,7 +159,7 @@ def auto_checkLower(date, origin, dest, flightNo, passengers, lowFare, sameFligh
     if(not sameFlight):
         cheapestFlight = lowest_fare(fg)
         if cheapestFlight and not cheapestFlight['flightNumbers'] == flight['flightNumbers']:
-            fare = get_flight_fare(date,origin,dest,cheapestFlight, passengers)
+            fare = get_fare(cheapestFlight)
             if(fare < lowFare):
                 savings = lowFare - fare
                 print('Found cheaper flight #{}, it costs ${}, saving ${}\n').format(cheapestFlight['flightNumbers'],fare, savings)
