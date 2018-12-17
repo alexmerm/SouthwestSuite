@@ -81,18 +81,22 @@ def lowest_fare(flightGroup):
     lowest_fare(flightgroup)
     Get lowest Fare in FlightGroup, Possibly implement restrictions in Future
     :param flightGroup: Flight Cards Group
-    :return: flight unit of lowestFlight, None if no flights are available
+    :return: Array of flight units of Flights with same lowest price, None if no flights are available
     """
     lowFare = 200000000000;
+    cheapestFlights = []
     cheapestFlight = None
     for flight in flightGroup:
         fare = get_fare(flight)
         if fare == None:
             print('Flight {} is no longer available\n').format(flight['flightNumbers'])
         elif fare < lowFare:
+            cheapestFlights = [flight]
             lowFare = fare
-            cheapestFlight = flight
-    return cheapestFlight
+        elif fare == lowFare:
+            cheapestFlights.append(flight)
+
+    return cheapestFlights
 
 
 def get_flight(flightGroup, flightNo):
@@ -110,12 +114,12 @@ def get_flight(flightGroup, flightNo):
 def get_flight_fare(date, origin, dest, flightNo, passengers):
     """
     Gets flight Fare for Flight # on Date for X passengers
-    :param date:
-    :param origin:
-    :param dest:
-    :param flightNo:
-    :param passengers:
-    :return:
+    :param date: Date in format YYYY-MM-DD
+    :param origin: Origin 3 char code
+    :param dest: Dest 3 char code
+    :param flightNo: String of FlightNo, if conntecting in formal 'first/last' ex: '1373/40'
+    :param passengers: # passengers(in string)
+    :return: int of Flight Fare, None if not found
     """
     fg = do_flight_search(date, origin, dest, passengers)
     flight = get_flight(fg, flightNo)
@@ -126,58 +130,98 @@ def get_flight_fare(date, origin, dest, flightNo, passengers):
 
 def get_lowest_fare(date, origin, dest, passengers):
     fg = do_flight_search(date,origin,dest,passengers)
-    flight = lowest_fare(fg)
-    if flight:
-        return flight['flightNumbers']
+    flights = lowest_fare(fg)
+    if flights:
+        return flights
     else:
         return 0
 
-def auto_checkLower(date, origin, dest, flightNo, passengers, lowFare, sameFlight):
-    body = "Test"
+def auto_checkLower(date, origin, dest, flightNo, passengers, lowFare, checkAlts):
+    lowFare = int(lowFare)
+    checkAlts = int(checkAlt)
+    body = None
+    cheaperFare = False #for if orig flight has cheaper fare
+    cheaperFlight = False #for if alt flight has cheaper fare
     print('\nChecking fare for flight {} on {} from {} to {} with {} passengers\n').format(flightNo, date, origin, dest, passengers)
     fg = do_flight_search(date,origin,dest,passengers)
-    flight = get_flight(fg, flightNo)
-    if not flight:
+    origFlight = get_flight(fg, flightNo)
+    if not origFlight:
         print("Flight {} on {} from {} to {} for {} passengers was not found, quitting function\n").format(flightNo,date, origin, dest, passengers)
         return
-    fare = get_fare(flight)
+    fare = get_fare(origFlight)
 
-    savings = 0
     if(fare == None):
         print("Flight {} is sold out\n").format(flightNo)
     elif(fare < lowFare):
         savings = lowFare - fare
-        body = ("LOWER FARE FOUND for Flight {} from {} to {} on {}\nPrice dropped to ${} from ${}, saving ${}\nRebook Now").format(flightNo, origin, dest, date, lowFare, fare, savings)
-        send_Message(body)
+        body =  ("LOWER FARE FOUND for Flight {} from {} to {} on {}\nPrice dropped to ${} from ${}, saving ${}\nRebook Now\n").format(flightNo, origin, dest, date, lowFare, fare, savings)
         print('Found Lower fare for flight {} : ${}\nYou Saved ${}').format(flightNo, fare, savings)
         lowFare = fare
+        cheaperFare = True
     elif fare > lowFare:
         print('The fare for flight {} went up from ${}! It\'s now ${}\n').format(flightNo,lowFare,fare)
     else:
          print('Fare for flight {} stayed at ${}\n').format(flightNo,fare)
 
-    if(not sameFlight):
-        cheapestFlight = lowest_fare(fg)
-        if cheapestFlight and not cheapestFlight['flightNumbers'] == flight['flightNumbers']:
-            fare = get_fare(cheapestFlight)
-            if(fare < lowFare):
-                savings = lowFare - fare
-                print('Found cheaper flight #{}, it costs ${}, saving ${}\n').format(cheapestFlight['flightNumbers'],fare, savings)
+    if(checkAlts):
+        cheapestFlights = lowest_fare(fg)
+        if cheapestFlights:
+            sameFlight = False
+            for flight in cheapestFlights:
+                sameFlight = sameFlight or flight['flightNumbers'] == origFlight['flightNumbers']
+            if(not sameFlight):
+                fare = get_fare(cheapestFlights[0])
+                if(fare < lowFare):
+                    savings = lowFare - fare
+                    cheaperFlight = True
+                    print("Found Cheapest Alternative Flight(s): They cost ${} saving{}\n Flight(s):\n").format(fare, savings)
+                    if len(cheapestFlights) > 1:
+                        if(body):
+                            body+= "Found Cheaper Alternative Flight: They cost ${} saving an additional ${}\nFlights:\n".format(fare,savings)
+                        else:
+                            body = "CHEAPER FLIGHTS FOUND for your trip from {} to {} on {}\nThey cost ${} saving ${}\nFlights:\n".format(origin, dest,date, fare, savings)
+                    else:
+                        if(body):
+                            body+= "Found Cheaper Alternative Flight: It costs ${} saving an additional ${}\nFlight:\n".format(fare,savings)
+                        else:
+                            body = "CHEAPER FLIGHT FOUND for your trip from {} to {} on {}\nIt costs ${} saving ${}\nFlight:\n".format(origin, dest,date,fare,savings)
+                    for flight in cheapestFlights:
+                        flightInfo = "Depart: {} Arrive: {} Duration: {} Stops: {}\n".format(flight['departureTime'], flight['arrivalTime'],flight['duration'],flight['stopDescriptionOnSelect'])
+                        print flightInfo
+                        body +=flightInfo
+    if(cheaperFare or cheaperFlight):
+        send_Message(body)
 
 def send_Message(body):
     message = client.messages.create(
         to=Phone_Num, 
         from_=keys['from_phone_num'],
         body=body)
-    print(message.sid)
+    #print(message.sid)
 
 
     
 if __name__ == '__main__':
+    if(len(sys.argv) > 1):
+        if len(sys.argv) == 8:
+            #Check Lower
+            date = sys.argv[1]
+            origin = sys.argv[2]
+            dest = sys.argv[3]
+            number = sys.argv[4]
+            passengers = sys.argv[5]
+            cost = sys.argv[6]
+            checkAlt = sys.argv[7]
+            #VERYIFY
+            auto_checkLower(date,origin,dest,number,passengers,cost,checkAlt)
+
+
+    #Tests
     #print(get_flight_fare('2019-01-04','LGA','AUS','154/9','1'))
     #num = get_lowest_fare('2019-01-03','LGA','AUS','1')
     #print('Lowest fare is {} on flight {}').format(get_flight_fare('2019-01-04','LGA','AUS',num,'1'),num)
-    auto_checkLower('2018-12-17','AUS','LGA','1250/1988','1',400, 0)
+    #auto_checkLower('2018-12-17','AUS','LGA','1250/1988','1',400, 1)
+    #auto_checkLower('2018-12-17','AUS','EWR','4695/2366','1',400, 1)
     #auto_checkLower('2018-12-17','AUS','LGA','1373/40','1',151, 0)
     #send_Message('test\n-Alex Southwest thing')
     
