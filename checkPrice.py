@@ -138,7 +138,7 @@ def get_lowest_fare(date, origin, dest, passengers):
 
 def auto_checkLower(date, origin, dest, flightNo, passengers, lowFare, checkAlts):
     lowFare = int(lowFare)
-    checkAlts = int(checkAlt)
+    checkAlts = int(checkAlts)
     body = None
     cheaperFare = False #for if orig flight has cheaper fare
     cheaperFlight = False #for if alt flight has cheaper fare
@@ -220,9 +220,9 @@ if __name__ == '__main__':
     #print(get_flight_fare('2019-01-04','LGA','AUS','154/9','1'))
     #num = get_lowest_fare('2019-01-03','LGA','AUS','1')
     #print('Lowest fare is {} on flight {}').format(get_flight_fare('2019-01-04','LGA','AUS',num,'1'),num)
-    #auto_checkLower('2018-12-17','AUS','LGA','1250/1988','1',400, 1)
+    auto_checkLower('2018-12-17','AUS','LGA','1250/1988','1',400, 1)
     #auto_checkLower('2018-12-17','AUS','EWR','4695/2366','1',400, 1)
-    #auto_checkLower('2018-12-17','AUS','LGA','1373/40','1',151, 0)
+    #auto_checkLower('2018-12-17','AUS','LGA','1373/40','1',900, 0)
     #send_Message('test\n-Alex Southwest thing')
     
     
