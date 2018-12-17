@@ -4,14 +4,19 @@ import sys
 import time
 import json
 from twilio.rest import Client
+
+with open('config.json', 'r') as fp:
+    keys = json.load(fp)
+
+#Twilio API Info
 # Your Account SID from twilio.com/console
-account_sid = "AC5d24ed895d0300141db85fdf81ba1ac8"
+account_sid = keys['twilio_account_sid']
 # Your Auth Token from twilio.com/console
-auth_token  = "47dde98bda64263c069213a43b54b484"
-Phone_Num = '+16317420179'
+auth_token  = keys['twilio_auth_token']
+Phone_Num = keys['phone_num']
 client = Client(account_sid, auth_token)
 
-
+#southwest API Info
 API_KEY = 'l7xxb3dcccc4a5674bada48fc6fcf0946bc8'
 USER_EXPERIENCE_KEY = 'AAAA3198-4545-46F4-9A05-BB3E868BEFF5'
 BASE_URL = 'https://mobile.southwest.com/api/'
