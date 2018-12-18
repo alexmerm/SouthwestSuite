@@ -174,7 +174,7 @@ def auto_checkLower(date, origin, dest, flightNo, passengers, lowFare, checkAlts
                 if(fare < lowFare):
                     savings = lowFare - fare
                     cheaperFlight = True
-                    print("Found Cheapest Alternative Flight(s): They cost ${} saving{}\n Flight(s):\n").format(fare, savings)
+                    print("Found Cheapest Alternative Flight(s): They cost ${} saving ${}\n Flight(s):\n").format(fare, savings)
                     if len(cheapestFlights) > 1:
                         if(body):
                             body+= "Found Cheaper Alternative Flight: They cost ${} saving an additional ${}\nFlights:\n".format(fare,savings)
@@ -220,7 +220,8 @@ if __name__ == '__main__':
     #print(get_flight_fare('2019-01-04','LGA','AUS','154/9','1'))
     #num = get_lowest_fare('2019-01-03','LGA','AUS','1')
     #print('Lowest fare is {} on flight {}').format(get_flight_fare('2019-01-04','LGA','AUS',num,'1'),num)
-    auto_checkLower('2018-12-17','AUS','LGA','1250/1988','1',400, 1)
+    #auto_checkLower('2018-12-17','AUS','LGA','1250/1988','1',400, 1)
+    auto_checkLower('2019-01-04','LGA','AUS','154/9','1',400, 1)
     #auto_checkLower('2018-12-17','AUS','EWR','4695/2366','1',400, 1)
     #auto_checkLower('2018-12-17','AUS','LGA','1373/40','1',900, 0)
     #send_Message('test\n-Alex Southwest thing')
