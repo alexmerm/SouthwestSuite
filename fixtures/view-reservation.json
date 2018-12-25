@@ -1,114 +1,385 @@
 {
-    "viewReservationViewPage": {
-        "_links": {
-            "cancel": null,
-            "change": null,
-            "checkIn": null,
-            "checkInSessionToken": null,
-            "passportEmergencyContacts": null,
-            "viewBoardingPass": null,
-            "viewBoardingPositions": null,
-            "viewStandbyList": null
-        },
-        "_v1_infoNeededToAddCompanion": null,
-        "_v1_infoNeededToCancel": {
-            "href": "/v1/mobile/reservations/record-locator/XXXX",
-            "method": "GET",
-            "query": {
-                "action": "CANCEL",
-                "first-name": "John",
-                "last-name": "Smith"
+    "_links":{
+        "addCompanion":null,
+
+        "cancel":{
+            "href":"/v1/mobile-air-booking/page/cancel-reservation/UI88B2",
+
+            "method":"GET",
+
+            "query":{
+                "first-name":"Alexander",
+
+                "last-name":"Kaish"
             }
         },
-        "_v1_infoNeededToChange": {
-            "href": "/v1/mobile/reservations/record-locator/XXXX",
-            "method": "GET",
-            "query": {
-                "action": "CHANGE",
-                "first-name": "John",
-                "last-name": "Smith"
+
+        "change":{
+            "href":"/v1/mobile-air-booking/page/flights/change/current/UI88B2",
+
+            "method":"GET",
+
+            "query":{
+                "first-name":"Alexander",
+
+                "last-name":"Kaish"
             }
         },
-        "bounds": [
+
+        "checkIn":null,
+
+        "checkInSessionToken":null,
+
+        "earlyBird":null,
+
+        "passportEmergencyContacts":null,
+
+        "viewBoardingPass":null,
+
+        "viewBoardingPositions":null,
+
+        "viewStandbyList":null
+    },
+
+    "_v1_infoNeededToAddCompanion":null,
+
+    "_v1_infoNeededToCancel":{
+        "href":"/v1/mobile/reservations/record-locator/UI88B2",
+
+        "method":"GET",
+
+        "query":{
+            "action":"CANCEL",
+
+            "first-name":"ALEXANDER",
+
+            "last-name":"KAISH"
+        }
+    },
+
+    "_v1_infoNeededToChange":{
+        "href":"/v1/mobile/reservations/record-locator/UI88B2",
+
+        "method":"GET",
+
+        "query":{
+            "action":"CHANGE",
+
+            "first-name":"ALEXANDER",
+
+            "last-name":"KAISH"
+        }
+    },
+
+    "bounds":[
+        {
+            "arrivalAirport":{
+                "code":"AUS",
+
+                "country":null,
+
+                "name":"Austin",
+
+                "state":"TX"
+            },
+
+            "arrivalStatus":null,
+
+            "arrivalStatusType":null,
+
+            "arrivalTime":"11:50",
+
+            "boundType":"DEPARTING",
+
+            "departureAirport":{
+                "code":"LGA",
+
+                "country":null,
+
+                "name":"New York (LaGuardia)",
+
+                "state":"NY"
+            },
+
+            "departureDate":"2019-01-11",
+
+            "departureStatus":null,
+
+            "departureStatusType":null,
+
+            "departureTime":"06:25",
+
+            "fareType":"WannaGetAway",
+
+            "flights":[
+                {
+                    "number":"1558",
+
+                    "wifiOnBoard":true
+                },
+
+                {
+                    "number":"3998",
+
+                    "wifiOnBoard":true
+                }
+            ],
+
+            "isNextDayArrival":false,
+
+            "passengerTypeCounts":{
+                "adult":1,
+
+                "senior":0
+            },
+
+            "standbyFlight":null,
+
+            "stops":[
+                {
+                    "airport":{
+                        "code":"HOU",
+
+                        "country":null,
+
+                        "name":"Houston (Hobby)",
+
+                        "state":"TX"
+                    },
+
+                    "arrivalStatus":null,
+
+                    "arrivalStatusType":null,
+
+                    "arrivalTime":"09:40",
+
+                    "changePlanes":true,
+
+                    "departureStatus":null,
+
+                    "departureStatusType":null,
+
+                    "departureTime":"10:45",
+
+                    "missingAirportDetails":false
+                }
+            ],
+
+            "travelTime":"6h 25m"
+        },
+
+        {
+            "arrivalAirport":{
+                "code":"LGA",
+
+                "country":null,
+
+                "name":"New York (LaGuardia)",
+
+                "state":"NY"
+            },
+
+            "arrivalStatus":null,
+
+            "arrivalStatusType":null,
+
+            "arrivalTime":"22:15",
+
+            "boundType":"RETURNING",
+
+            "departureAirport":{
+                "code":"AUS",
+
+                "country":null,
+
+                "name":"Austin",
+
+                "state":"TX"
+            },
+
+            "departureDate":"2019-01-13",
+
+            "departureStatus":null,
+
+            "departureStatusType":null,
+
+            "departureTime":"14:20",
+
+            "fareType":"WannaGetAway",
+
+            "flights":[
+                {
+                    "number":"1699",
+
+                    "wifiOnBoard":true
+                },
+
+                {
+                    "number":"3764",
+
+                    "wifiOnBoard":true
+                }
+            ],
+
+            "isNextDayArrival":false,
+
+            "passengerTypeCounts":{
+                "adult":1,
+
+                "senior":0
+            },
+
+            "standbyFlight":null,
+
+            "stops":[
+                {
+                    "airport":{
+                        "code":"DAL",
+
+                        "country":null,
+
+                        "name":"Dallas (Love Field)",
+
+                        "state":"TX"
+                    },
+
+                    "arrivalStatus":null,
+
+                    "arrivalStatusType":null,
+
+                    "arrivalTime":"15:20",
+
+                    "changePlanes":true,
+
+                    "departureStatus":null,
+
+                    "departureStatusType":null,
+
+                    "departureTime":"18:00",
+
+                    "missingAirportDetails":false
+                }
+            ],
+
+            "travelTime":"6h 55m"
+        }
+    ],
+
+    "checkInIneligibilityReason":null,
+
+    "companion":null,
+
+    "confirmationNumber":"UI88B2",
+
+    "dates":{
+        "first":"2019-01-11",
+
+        "second":"2019-01-13"
+    },
+
+    "destinationAirport":{
+        "code":"AUS",
+
+        "country":null,
+
+        "name":"Austin",
+
+        "state":"TX"
+    },
+
+    "destinationDescription":"Austin",
+
+    "hasAnyCancelledFlights":false,
+
+    "hasUnaccompaniedMinor":false,
+
+    "isCheckInEligible":false,
+
+    "isCheckedIn":false,
+
+    "isDynamicWaiver":false,
+
+    "isInternational":false,
+
+    "isNonRevPnr":false,
+
+    "originAirport":{
+        "code":"LGA",
+
+        "country":null,
+
+        "name":"New York (LaGuardia)",
+
+        "state":"NY"
+    },
+
+    "pageHeader":"LGA - AUS",
+
+    "passengers":[
+        {
+            "accountNumber":"20293549555",
+
+            "checkInIneligibilityReason":null,
+
+            "hasAnyEarlyBird":false,
+
+            "hasCompletePassportInfo":false,
+
+            "isCheckInEligible":false,
+
+            "isCheckedIn":false,
+
+            "isUnaccompaniedMinor":false,
+
+            "name":"Alexander Kaish",
+
+            "passengerReference":"2"
+        }
+    ],
+
+    "shareDetails":{
+        "confirmationInfo":"Confirmation #: UI88B2",
+
+        "flightInfo":[
             {
-                "arrivalAirport": {
-                    "code": "LAX",
-                    "country": null,
-                    "name": "Los Angeles",
-                    "state": "CA"
-                },
-                "arrivalStatus": null,
-                "arrivalStatusType": null,
-                "arrivalTime": "15:10",
-                "boundType": "DEPARTING",
-                "departureAirport": {
-                    "code": "SFO",
-                    "country": null,
-                    "name": "San Francisco",
-                    "state": "CA"
-                },
-                "departureDate": "2018-01-01",
-                "departureStatus": null,
-                "departureStatusType": null,
-                "departureTime": "13:45",
-                "fareType": "Companion",
-                "flights": [
-                    {
-                        "number": "1234",
-                        "wifiOnBoard": true
-                    }
+                "arrivalInfo":"Arrives: 11:50 AM AUS",
+
+                "departureInfo":"Departs: 06:25 AM LGA",
+
+                "flightInfo":"Flight #: 1558/3998",
+
+                "header":"Departing Flight: Fri, Jan 11, 2019",
+
+                "stops":[
+                    "Stop: Houston (Hobby), TX. Change planes"
                 ],
-                "isNextDayArrival": false,
-                "passengerTypeCounts": {
-                    "adult": 1,
-                    "senior": 0
-                },
-                "stops": [],
-                "travelTime": "1h 25m"
-            }
-        ],
-        "checkInIneligibilityReason": null,
-        "companion": null,
-        "confirmationNumber": "XXXX",
-        "dates": {
-            "first": "2018-01-01",
-            "second": null
-        },
-        "destinationAirport": {
-            "code": "LAX",
-            "country": null,
-            "name": "Los Angeles",
-            "state": "CA"
-        },
-        "destinationDescription": "Los Angeles",
-        "hasAnyCancelledFlights": false,
-        "hasUnaccompaniedMinor": false,
-        "isCheckInEligible": false,
-        "isCheckedIn": false,
-        "isDynamicWaiver": false,
-        "isInternational": false,
-        "isNonRevPnr": false,
-        "originAirport": {
-            "code": "SFO",
-            "country": null,
-            "name": "San Francisco",
-            "state": "CA"
-        },
-        "pageHeader": "SFO - LAX",
-        "passengers": [
+
+                "travelTime":"Travel time: 6hr 25 mins"
+            },
+
             {
-                "accountNumber": "111111111",
-                "checkInIneligibilityReason": null,
-                "hasAnyEarlyBird": false,
-                "hasCompletePassportInfo": false,
-                "isCheckInEligible": false,
-                "isCheckedIn": false,
-                "isUnaccompaniedMinor": false,
-                "name": "John Smith",
-                "passengerReference": "2"
+                "arrivalInfo":"Arrives: 10:15 PM LGA",
+
+                "departureInfo":"Departs: 02:20 PM AUS",
+
+                "flightInfo":"Flight #: 1699/3764",
+
+                "header":"Returning Flight: Sun, Jan 13, 2019",
+
+                "stops":[
+                    "Stop: Dallas (Love Field), TX. Change planes"
+                ],
+
+                "travelTime":"Travel time: 6hr 55 mins"
             }
         ],
-        "shouldShowAddEarlyBirdButton": false,
-        "standbyFlight": null
-    }
+
+        "passengerInfo":"Passenger names: Alexander Kaish",
+
+        "subject":"Southwest Flight 1558 New York (LaGuardia) to Austin"
+    },
+
+    "shouldShowAddEarlyBirdButton":false,
+
+    "standbyFlight":null
 }
