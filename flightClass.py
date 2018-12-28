@@ -25,7 +25,10 @@ class Flight:
         self.stopsDesc = flightCard['stopDescription']
     @classmethod
     def initFromBoundItem(self, flightBoundItem, cost):
-        self.number = flightBoundItem
+        num = ""
+        for flight in flightBoundItem['flights']:
+            num += "{}/".format(flight['number'])
+        self.number = num[:-1]
         self.date = flightBoundItem['departureDate']
         self.origin = flightBoundItem['departureAirport']['code']
         self.dest = flightBoundItem['arrivalAirport']['code']
@@ -34,18 +37,10 @@ class Flight:
         self.departureTime = flightBoundItem['departureTime']
         self.arrivalTime = flightBoundItem['arrivalTime']
         self.duration = flightBoundItem['travelTime']
-        num = ""
-        for flight in flightBoundItem['flights']:
-            num += "{}/".format(flight['number'])
-        self.number = num[:-1]
+
 
 
     #DEF Validate(against orig route serch, against online?)
-class FlightReservation(Flight):
-    pass
-
-if(__name__ == '__main__'):
-    pass
 
 
 
