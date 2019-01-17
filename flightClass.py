@@ -1,14 +1,15 @@
-class Flight:
-    def __int__(self,number, origin, dest,date, passengers, fare):
+class Flight(object):
+
+    def __init__(self,number, origin, dest,date, passengers, fare):
         self.date = date
         self.number = number
-        self.origin = origin,
+        self.origin = origin
         self.dest = dest
         self.passengers = passengers
         self.fare = fare
         self.hasTimeInfo = False
     @classmethod
-    def initFromCard(self, flightCard, origin, dest, date, pasengers):
+    def initFromCard(cls, flightCard, origin, dest, date, pasengers):
         """
         Init from Flight object From Search
         :param flightCard:
@@ -17,31 +18,36 @@ class Flight:
         :param date:
         :param pasengers:
         """
-        self.__init__(flightCard['flightNumbers'],origin,dest,date,pasengers,flightCard['startingFromPrice']['amount'])
-        self.hasTimeInfo = True
-        self.departureTime = flightCard['departureTime']
-        self.arrivalTime = flightCard['arrivalTime']
-        self.duration = flightCard['duration']
-        self.stopsDesc = flightCard['stopDescription']
+        flightObj = cls(flightCard['flightNumbers'],origin,dest,date,pasengers,flightCard['startingFromPrice']['amount'])
+        flightObj.hasTimeInfo = True
+        flightObj.departureTime = flightCard['departureTime']
+        flightObj.arrivalTime = flightCard['arrivalTime']
+        flightObj.duration = flightCard['duration']
+        flightObj.stopsDesc = flightCard['stopDescription']
+        return flightObj
     @classmethod
-    def initFromBoundItem(self, flightBoundItem, cost):
+    def initFromBoundItem(cls, flightBoundItem, cost):
         num = ""
-        for flight in flightBoundItem['flights']:
-            num += "{}/".format(flight['number'])
-        self.number = num[:-1]
-        self.date = flightBoundItem['departureDate']
-        self.origin = flightBoundItem['departureAirport']['code']
-        self.dest = flightBoundItem['arrivalAirport']['code']
-        self.fare = cost
-        self.hasTimeInfo = True
-        self.departureTime = flightBoundItem['departureTime']
-        self.arrivalTime = flightBoundItem['arrivalTime']
-        self.duration = flightBoundItem['travelTime']
+        for flightNum in flightBoundItem['flights']:
+            num += "{}/".format(flightNum['number'])
+        num = num[:-1]
+        #print flightBoundItem
+        flightObj = cls(num,flightBoundItem['departureAirport']['code'],flightBoundItem['arrivalAirport']['code'],flightBoundItem['departureDate'],'1',cost)
 
+        flightObj.hasTimeInfo = True
+        flightObj.departureTime = flightBoundItem['departureTime']
+        flightObj.arrivalTime = flightBoundItem['arrivalTime']
+        flightObj.duration = flightBoundItem['travelTime']
+        return flightObj
+    def __str__(self):
+        return str(self.__class__) + ": " + str(self.__dict__)
 
 
     #DEF Validate(against orig route serch, against online?)
 
+#DEF GetMoreInfo(self)
+        #Does Flight Search, gets Time Info, Curr Price?
+        #Self.available
 
 
 # Put in a compare clause, check if fare is lower thn other by just comparing self
