@@ -2,6 +2,8 @@ import checkin
 import checkPrice
 import json
 from flightClass import Flight
+with open('config.json', 'r') as fp:
+    keys = json.load(fp)
 
 if __name__ == '__main__':
     reservation = checkin.lookup_existing_reservation('SOXX2F', 'Steven', 'Kaish')
@@ -12,6 +14,6 @@ if __name__ == '__main__':
         ##each legs[x] is one leg of the flight, or one flight
 
         fl = Flight.initFromBoundItem(f,100)
-        checkPrice.auto_checkLower(fl.date,fl.origin,fl.dest,fl.number,fl.passengers,fl.fare,1)
+        checkPrice.auto_checkLower(fl.date,fl.origin,fl.dest,fl.number,fl.passengers,fl.fare,1,keys['phone_num'])
         #checkPrice.auto_checkLower(date,origin,dest,flightnum,'1','900', '1')
 

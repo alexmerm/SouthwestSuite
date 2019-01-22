@@ -7,3 +7,5 @@
 .idea/vcs.xml
 .idea/workspace.xml
 config.json
+southwest.db
+sqlite3

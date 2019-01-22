@@ -58,8 +58,12 @@ def safe_request(url, body=None):
 def lookup_existing_reservation(number, first, last):
     # Find our existing record
     url = "{}mobile-misc/v1/mobile-misc/page/view-reservation/{}?first-name={}&last-name={}".format(BASE_URL, number, first, last)
-    data = safe_request(url)
-    return data['viewReservationViewPage']
+    r = requests.get(url, headers=headers)
+    data = r.json()
+    if 'viewReservationViewPage' in data:
+        return data['viewReservationViewPage']
+    else:
+         return data['message']
 
 def get_checkin_data(number, first, last):
     url = "{}mobile-air-operations/v1/mobile-air-operations/page/check-in/{}?first-name={}&last-name={}".format(BASE_URL, number, first, last)

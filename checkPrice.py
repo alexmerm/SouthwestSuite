@@ -143,7 +143,7 @@ def get_lowest_fare(date, origin, dest, passengers):
     else:
         return 0
 
-def auto_checkLower(date, origin, dest, flightNo, passengers, lowFare, checkAlts):
+def auto_checkLower(date, origin, dest, flightNo, passengers, lowFare, checkAlts,phoneNo):
     lowFare = int(lowFare)
     checkAlts = int(checkAlts)
     body = None
@@ -169,7 +169,7 @@ def auto_checkLower(date, origin, dest, flightNo, passengers, lowFare, checkAlts
         print('The fare for flight {} went up from ${}! It\'s now ${}\n').format(flightNo,lowFare,fare)
     else:
          print('Fare for flight {} stayed at ${}\n').format(flightNo,fare)
-
+    lowOrigFlightFair = lowFare
     if(checkAlts):
         cheapestFlights = lowest_fare(flights)
         if cheapestFlights:
@@ -197,11 +197,12 @@ def auto_checkLower(date, origin, dest, flightNo, passengers, lowFare, checkAlts
                         print flightInfo
                         body +=flightInfo
     if(cheaperFare or cheaperFlight):
-        send_Message(body)
+        send_Message(phoneNo,body)
+    return lowOrigFlightFair
 
-def send_Message(body):
+def send_Message(number,body):
     message = client.messages.create(
-        to=Phone_Num, 
+        to=number,
         from_=keys['from_phone_num'],
         body=body)
     #print(message.sid)

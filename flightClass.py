@@ -42,6 +42,9 @@ class Flight(object):
     def __str__(self):
         return str(self.__class__) + ": " + str(self.__dict__)
 
+    def updateFare(self,cost):
+        self.fare = cost
+
 
     #DEF Validate(against orig route serch, against online?)
 
